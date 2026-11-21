@@ -66,7 +66,7 @@ with single_tab:
             )
             sugar_content = st.selectbox(
                 "Product Sugar Content",
-                ["Low Fat", "Regular"],
+                ["Low Sugar", "No Sugar", "Regular", "reg"],
             )
             allocated_area = st.number_input(
                 "Product Allocated Area",
@@ -94,8 +94,8 @@ with single_tab:
             )
 
         with right:
-            store_id = st.text_input(
-                "Store ID", value="OUT049"
+            store_id = st.selectbox(
+                "Store ID", ["OUT001", "OUT002", "OUT003", "OUT004"]
             )
             establishment_year = st.number_input(
                 "Store Establishment Year",
@@ -114,10 +114,10 @@ with single_tab:
             store_type = st.selectbox(
                 "Store Type",
                 [
-                    "Grocery Store",
+                    "Departmental Store",
+                    "Food Mart",
                     "Supermarket Type1",
                     "Supermarket Type2",
-                    "Supermarket Type3",
                 ],
             )
 
@@ -248,7 +248,7 @@ with batch_tab:
                         else:
                             st.error("Unexpected response from the API.")
                             st.json(result)
-                            
+
                     else:
                         st.error(
                             f"API error ({response.status_code})"
