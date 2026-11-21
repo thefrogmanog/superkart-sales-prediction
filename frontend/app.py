@@ -153,8 +153,7 @@ with single_tab:
                 if response.ok:
                     result = response.json()
                     prediction = result.get(
-                        "prediction",
-                        result.get("predicted_sales"),
+                        "Predicted_Product_Store_Sales_Total"
                     )
 
                     if prediction is not None:
