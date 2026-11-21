@@ -227,30 +227,28 @@ with batch_tab:
                     if response.ok:
                         result = response.json()
 
-                        if "predictions" in result:
-                            predictions = result["predictions"]
-                            output_df = batch_df.copy()
-                            output_df["Predicted_Sales"] = predictions
+                        if isinstance(result, list):
+                            output_df = pd.DataFrame(result)
+
                             st.success(
                                 f"Predicted sales for {len(output_df)} rows."
                             )
+
                             st.dataframe(
-                                output_df, use_container_width=True
+                                output_df,
+                                use_container_width=True
                             )
+
                             st.download_button(
                                 "Download predictions as CSV",
-                                data=output_df.to_csv(
-                                    index=False
-                                ).encode("utf-8"),
+                                data=output_df.to_csv(index=False).encode("utf-8"),
                                 file_name="superkart_predictions.csv",
                                 mime="text/csv",
                             )
                         else:
-                            st.error(
-                                "The API response did not contain "
-                                "a predictions field."
-                            )
+                            st.error("Unexpected response from the API.")
                             st.json(result)
+                            
                     else:
                         st.error(
                             f"API error ({response.status_code})"
